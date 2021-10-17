@@ -1,6 +1,5 @@
 package pages;
 
-import products.Products;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -18,10 +17,6 @@ public class HomePage extends BasePage {
      * @param product - имя товара
      * @return ResultsPage
      */
-    public SearchingResultsPage productSearch(Products product) {
-        return productSearch(product.getTitle());
-    }
-
     public SearchingResultsPage productSearch(String product) {
         waitUtilElementToBeClickable(searchLine);
         searchLine.click();
