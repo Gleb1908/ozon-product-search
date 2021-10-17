@@ -89,14 +89,4 @@ public class BasePage {
         }
     }
 
-//    public void lineToString () {
-//        for (Product product:
-//             products) {
-//            System.out.println(
-//                    "Наименование: " + product.getName()
-//                            + ". Стоимость: " + product.getPrice()
-//            );
-//        }
-//    }
-
 }
