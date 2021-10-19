@@ -2,7 +2,6 @@ package pages;
 
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import products.Product;
@@ -102,14 +101,22 @@ public class ShoppingBasketPage extends BasePage {
 
 
 
-    private boolean isElementPresent (String element) {
-        try {
-            driverManager.getDriver().findElement(By.xpath(element));
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+//    private boolean isElementPresent (String element) {
+//        try {
+//            driverManager.getDriver().findElement(By.xpath(element));
+//            return true;
+//        } catch (NoSuchElementException e) {
+//            return false;
+//        }
+//    }
+
+
+    public FiltersPage openFiltersPage () {
+        driverManager.getDriver().findElement(By.xpath("//a[@href='/cart']")).click();
+        pageManager.getShoppingBasketPage().checkOpenShoppingBasketPage();
+        return pageManager.getFiltersPage();
     }
+
 
     public void lineToString () {
         int indexMaxPrice = 0;

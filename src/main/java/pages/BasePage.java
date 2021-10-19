@@ -3,6 +3,8 @@ package pages;
 import managers.DriverManager;
 import managers.PageManager;
 import managers.TestPropManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -87,6 +89,27 @@ public class BasePage {
         } catch (TimeoutException ex) {
             return false;
         }
+    }
+
+    protected boolean isElementPresent (String element) {
+        try {
+            driverManager.getDriver().findElement(By.xpath(element));
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public void sleep(int sec) {
+        try {
+            Thread.sleep(sec * 1000);
+        } catch (InterruptedException ignored) {
+        }
+    }
+
+    public WebElement getElement (String XPathLoc) {
+        WebElement element = driverManager.getDriver().findElement(By.xpath(XPathLoc));
+        return element;
     }
 
 }

@@ -1,5 +1,6 @@
 package managers;
 
+import pages.FiltersPage;
 import pages.SearchingResultsPage;
 import pages.HomePage;
 import pages.ShoppingBasketPage;
@@ -25,6 +26,11 @@ public class PageManager {
      * Страничка корзины с покупками
      */
     private ShoppingBasketPage shoppingBasketPage;
+
+    /**
+     * Страничка корзины с покупками
+     */
+    private FiltersPage filtersPage;
 
     /**
      * Конструктор специально был объявлен как private (singleton паттерн)
@@ -77,5 +83,11 @@ public class PageManager {
         return shoppingBasketPage;
     }
 
+    public FiltersPage getFiltersPage() {
+        if (filtersPage == null) {
+            filtersPage = new FiltersPage();
+        }
+        return filtersPage;
+    }
 
 }

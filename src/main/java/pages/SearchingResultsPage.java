@@ -56,11 +56,11 @@ public class SearchingResultsPage extends BasePage {
     }
 
     private void addProduct(int amount) {
-
+        sleep(1);
         for (WebElement element : listProducts) {
 //            Assertions.assertTrue(waitUtilElementToBeVisible(element).isDisplayed(),"Элемент не загрузился");
             if (products.size()<amount) {
-                if (listProducts.indexOf(element) % 2 == 0) {
+                if (! (listProducts.indexOf(element) % 2 == 0)) {
                     try {
                         if (isElementPresent("//div[@class = 'bi3 bi5']//div[@class='_29hd _2JpD']")) {
                             element.findElement(By.xpath(".//div[@class='_29hd _2JpD']")).click();
@@ -69,6 +69,7 @@ public class SearchingResultsPage extends BasePage {
                             int price = Integer.parseInt(priceStr
                                     .replaceAll("[^0-9]", ""));
                             products.add(new Product(name, price, true));
+                            sleep(2);
                             Assertions.assertEquals(products.size(),
                                     numberOfItemInTheCart(),
                                     "Количество добавленных товаров не совпадает со значением около значка корзины");
@@ -84,53 +85,57 @@ public class SearchingResultsPage extends BasePage {
 
     private int numberOfItemInTheCart () {
         String numberStr = driverManager.getDriver().findElement(By.xpath(".//span[@class = 'f-caption--bold e3i0']")).getText();
-        int number = Integer.parseInt(numberStr
-                .replaceAll("\\s+", "")
-                .trim());
+        int number = Integer.parseInt(numberStr);
         return number;
     }
 
-    public SearchingResultsPage checkBoxField (String name, String trueOrFalse) {
-        String checkBoxLoc = "//div[@class='g1h7 filter-block']//div[contains(@value,'" + name + "')]//div[@class='_3eqP']";
-        String checkBoxCheckedLoc = "//div[@class='g1h7 filter-block']//div[contains(@value,'" + name + "')]//label[contains(@class,'OVK5')]";
-        if (! String.valueOf(isElementPresent(checkBoxCheckedLoc)).equalsIgnoreCase(trueOrFalse)) {
-            driverManager.getDriver().findElement(By.xpath(checkBoxLoc)).click();
-        }
-        return this;
-    }
+//    public SearchingResultsPage checkBoxField (String name, String trueOrFalse) {
+//        String checkBoxLoc = "//div[@class='g1h7 filter-block']//div[contains(@value,'" + name + "')]//div[@class='_3eqP']";
+//        String checkBoxCheckedLoc = "//div[@class='g1h7 filter-block']//div[contains(@value,'" + name + "')]//label[contains(@class,'OVK5')]";
+//        if (! String.valueOf(isElementPresent(checkBoxCheckedLoc)).equalsIgnoreCase(trueOrFalse)) {
+//            driverManager.getDriver().findElement(By.xpath(checkBoxLoc)).click();
+//        }
+//        return this;
+//    }
 
-    private boolean isElementPresent (String element) {
-        try {
-            driverManager.getDriver().findElement(By.xpath(element));
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
+//    private boolean isElementPresent (String element) {
+//        try {
+//            driverManager.getDriver().findElement(By.xpath(element));
+//            return true;
+//        } catch (NoSuchElementException e) {
+//            return false;
+//        }
+//    }
 
-    public SearchingResultsPage selectValueFromOrTo(String nameOfField, String fromOrTo, String value) {
-        String elementLoc = "//div[@class='g1h7 filter-block']//div[contains(text(),'" + nameOfField + "')]/..//input[contains(@qa-id,'range-" + fromOrTo + "')]";
-        WebElement element = driverManager.getDriver().findElement(By.xpath(elementLoc));
-        element.click();
-        element.sendKeys(Keys.CONTROL, "a", Keys.DELETE);
-        element.sendKeys(value);
-        Assertions.assertEquals(element.getAttribute("value"),value,"Введенный текст не совпадает");
-        element.sendKeys(Keys.ENTER);
-        return this;
-    }
+//    public SearchingResultsPage selectValueFromOrTo(String nameOfField, String fromOrTo, String value) {
+//        String elementLoc = "//div[@class='g1h7 filter-block']//div[contains(text(),'" + nameOfField + "')]/..//input[contains(@qa-id,'range-" + fromOrTo + "')]";
+//        WebElement element = driverManager.getDriver().findElement(By.xpath(elementLoc));
+//        element.click();
+//        element.sendKeys(Keys.CONTROL, "a", Keys.DELETE);
+//        element.sendKeys(value);
+//        Assertions.assertEquals(element.getAttribute("value"),value,"Введенный текст не совпадает");
+//        element.sendKeys(Keys.ENTER);
+//        return this;
+//    }
 
-    public SearchingResultsPage sleep() {
-        try {
-            Thread.sleep(8000);
-        } catch (InterruptedException ignored) {
-        }
-        return this;
-    }
+//    public SearchingResultsPage sleep() {
+//        try {
+//            Thread.sleep(8000);
+//        } catch (InterruptedException ignored) {
+//        }
+//        return this;
+//    }
 
     public ShoppingBasketPage openShoppingBasketPage () {
         driverManager.getDriver().findElement(By.xpath("//a[@href='/cart']")).click();
         pageManager.getShoppingBasketPage().checkOpenShoppingBasketPage();
         return pageManager.getShoppingBasketPage();
+    }
+
+    public FiltersPage selectNecessaryFilters () {
+        driverManager.getDriver().findElement(By.xpath("//div[@class='_29hd _3tpG _2JpD _2w-L']//div[@class='kxa6']")).click();
+        pageManager.getFiltersPage().checkOpenFiltersPage();
+        return pageManager.getFiltersPage();
     }
 
 }
