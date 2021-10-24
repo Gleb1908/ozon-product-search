@@ -64,11 +64,11 @@ public class SearchingResultsPage extends BasePage {
                     try {
                         if (isElementPresent("//div[@class = 'bi3 bi5']//div[@class='_29hd _2JpD']")) {
                             element.findElement(By.xpath(".//div[@class='_29hd _2JpD']")).click();
-                            String name = element.findElement(By.xpath(".//a[@class='tile-hover-target bj5']//span[text()]")).getText();
-                            String priceStr = element.findElement(By.xpath(".//div[@class='bi8']//span[@class='_2DV4 _17o0 _1v1b']")).getText();
-                            int price = Integer.parseInt(priceStr
+                            String productName = element.findElement(By.xpath(".//a[@class='tile-hover-target bj5']//span[text()]")).getText();
+                            String productPriceStr = element.findElement(By.xpath(".//div[@class='bi8']//span[@class='_2DV4 _17o0 _1v1b']")).getText();
+                            int productPrice = Integer.parseInt(productPriceStr
                                     .replaceAll("[^0-9]", ""));
-                            products.add(new Product(name, price, true));
+                            products.add(new Product(productName, productPrice, true));
                             sleep(2);
                             Assertions.assertEquals(products.size(),
                                     numberOfItemInTheCart(),
